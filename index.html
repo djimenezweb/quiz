@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Quiz Game</title>
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="title">Quiz Game</h1>
+    </header>
+    <main class="main">
+      <div class="game-container">
+        <div class="correct-questions-container">
+          <div class="correct-question">
+            <p class="score-theme">
+              Programing -
+              <span id="programming-score">0</span>
+            </p>
+          </div>
+          <div class="separator"></div>
+          <div class="correct-question">
+            <p class="score-theme">
+              Math -
+              <span id="math-score">0</span>
+            </p>
+          </div>
+          <div class="separator"></div>
+          <div class="correct-question">
+            <p class="score-theme">
+              Science -
+              <span id="science-score">0</span>
+            </p>
+          </div>
+          <div class="separator"></div>
+          <div class="correct-question">
+            <p class="score-theme">
+              History -
+              <span id="history-score">0</span>
+            </p>
+          </div>
+        </div>
+        <div class="question-container">
+          <p id="remaining-time" class="remaining-time"></p>
+          <h2 id="game-question" class="game-question">Bienvenido a tu propio juego de preguntas y respuestas</h2>
+          <button id="start-button" class="button">START GAME</button>
+          <div id="answers" class="answers-container">
+            <div class="answer">aaaaa</div>
+            <div class="">aaaaa</div>
+            <div class="">aaaaa</div>
+            <div class="">aaaaa</div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
