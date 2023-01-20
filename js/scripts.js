@@ -61,11 +61,47 @@ const QUESTIONS = {
       },
       theme: 'science',
       hasAnswered: false
+    },
+    {
+      question: '¿Cuál es la especialidad del Nobel de Economía Daniel Kahneman?',
+      answers: {
+        options: ['Matemáticas', 'Psicología', 'Teoría del caos', 'Teoría de cuerdas'],
+        correctAnswer: 1
+      },
+      theme: 'science',
+      hasAnswered: false
+    },
+    {
+      question: '¿Por qué investigación recibió Einstein el Nobel de Física?',
+      answers: {
+        options: ['Efecto fotoeléctrico', 'Teoría especial de la relatividad', 'Teoría general de la relatividad', 'Equivalencia de la masa y la energía'],
+        correctAnswer: 0
+      },
+      theme: 'science',
+      hasAnswered: false
+    },
+    {
+      question: '¿En qué isla viven los lémures?',
+      answers: {
+        options: ['Sumatra', 'Borneo', 'Madagascar', 'Tasmania'],
+        correctAnswer: 2
+      },
+      theme: 'science',
+      hasAnswered: false
+    },
+    {
+      question: '¿Qué vitamina previene el escorbuto?',
+      answers: {
+        options: ['A', 'B12', 'C', 'D'],
+        correctAnswer: 2
+      },
+      theme: 'science',
+      hasAnswered: false
     }
   ],
   history: [
     {
-      question: '¿En qué año piso el hombre la luna por primera vez?',
+      question: '¿En qué año pisó el hombre la luna por primera vez?',
       answers: {
         options: ['1830', '1969', '2001', 'Fue un montaje'],
         correctAnswer: 1
@@ -78,6 +114,24 @@ const QUESTIONS = {
       answers: {
         options: ['China', 'Francia', 'EEUU', 'Italia'],
         correctAnswer: 0
+      },
+      theme: 'history',
+      hasAnswered: false
+    },
+    {
+      question: '¿Qué líder iraní fue derrocado en 1979?',
+      answers: {
+        options: ['Sadat', 'Gaddafi', 'Ahmadinejad', 'Reza Pahlavi'],
+        correctAnswer: 3
+      },
+      theme: 'history',
+      hasAnswered: false
+    },
+    {
+      question: '¿Qué líder nazi voló en solitario a Escocia en 1941 para llegar a un acuerdo con el Reino Unido?',
+      answers: {
+        options: ['Göring', 'Hess', 'Rommel', 'Himmler'],
+        correctAnswer: 1
       },
       theme: 'history',
       hasAnswered: false
@@ -105,6 +159,30 @@ const QUESTIONS = {
       answers: {
         options: ['Auguste Lumière', 'Thomas Edison', 'George Eastman', 'Eadweard Muybridge'],
         correctAnswer: 2
+      },
+      hasAnswered: false
+    },
+    {
+      question: '¿Cómo se llama la etiqueta que se pone en el lomo de los libros de las bibliotecas?',
+      answers: {
+        options: ['Tejuelo', 'Gorrón', 'Cajo', 'Faja'],
+        correctAnswer: 0
+      },
+      hasAnswered: false
+    },
+    {
+      question: '¿De dónde viene la palabra «coche»?',
+      answers: {
+        options: ['Del alemán «Kutsche»', 'Del checo «cočiem»', 'Del húngaro «kocsi»', 'Del francés «couchette»'],
+        correctAnswer: 2
+      },
+      hasAnswered: false
+    },
+    {
+      question: '¿Cuál fue el primer largometraje de Stanley Kubrick?',
+      answers: {
+        options: ['El beso del asesino', 'Atraco perfecto', 'Espartaco', 'Lolita'],
+        correctAnswer: 0
       },
       hasAnswered: false
     }
