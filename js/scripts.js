@@ -201,7 +201,7 @@ const counters = {
   history: 0
 };
 
-const allQuestions = [...QUESTIONS.programming, ...QUESTIONS.math, ...QUESTIONS.history];
+const allQuestions = [...QUESTIONS.programming, ...QUESTIONS.math, ...QUESTIONS.science, ...QUESTIONS.history];
 
 const randomNumber = number => {
   return Math.floor(Math.random() * (number + 1));
@@ -229,16 +229,13 @@ const printQuestion = () => {
   answersElement.append(fragment);
 };
 
-//const printCounter = () => {};
-
 const updateScore = theme => {
   document.getElementById(`${theme}-score`).textContent = counters[theme];
 };
 
 startButton.addEventListener('click', () => {
   startButton.remove();
-  printQuestion(currentQuestion);
-  //printCounter();
+  printQuestion();
 });
 
 answersElement.addEventListener('click', ev => {
