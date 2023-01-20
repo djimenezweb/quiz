@@ -1,6 +1,7 @@
 const startButton = document.getElementById('start-button');
 const gameQuestionElement = document.getElementById('game-question');
 const answersElement = document.getElementById('answers');
+const remainingTimeElement = document.getElementById('remaining-time');
 
 const QUESTIONS = {
   programming: [
@@ -97,6 +98,15 @@ const QUESTIONS = {
       },
       theme: 'science',
       hasAnswered: false
+    },
+    {
+      question: '¿Cuántos huesos tiene un humano adulto?',
+      answers: {
+        options: ['412', '287', '306', '328'],
+        correctAnswer: 2
+      },
+      theme: 'science',
+      hasAnswered: false
     }
   ],
   history: [
@@ -135,23 +145,14 @@ const QUESTIONS = {
       },
       theme: 'history',
       hasAnswered: false
-    }
-  ],
-  random: [
+    },
     {
       question: '¿Dónde originaron los juegos olímpicos?',
       answers: {
         options: ['Cuenca', 'Grecia', 'Alemania', 'Dublin'],
         correctAnswer: 1
       },
-      hasAnswered: false
-    },
-    {
-      question: '¿Cuántos huesos tiene un humano adulto?',
-      answers: {
-        options: ['412', '287', '306', '328'],
-        correctAnswer: 2
-      },
+      theme: 'history',
       hasAnswered: false
     },
     {
@@ -160,6 +161,7 @@ const QUESTIONS = {
         options: ['Auguste Lumière', 'Thomas Edison', 'George Eastman', 'Eadweard Muybridge'],
         correctAnswer: 2
       },
+      theme: 'history',
       hasAnswered: false
     },
     {
@@ -168,6 +170,7 @@ const QUESTIONS = {
         options: ['Tejuelo', 'Gorrón', 'Cajo', 'Faja'],
         correctAnswer: 0
       },
+      theme: 'history',
       hasAnswered: false
     },
     {
@@ -176,6 +179,7 @@ const QUESTIONS = {
         options: ['Del alemán «Kutsche»', 'Del checo «cočiem»', 'Del húngaro «kocsi»', 'Del francés «couchette»'],
         correctAnswer: 2
       },
+      theme: 'history',
       hasAnswered: false
     },
     {
@@ -184,13 +188,66 @@ const QUESTIONS = {
         options: ['El beso del asesino', 'Atraco perfecto', 'Espartaco', 'Lolita'],
         correctAnswer: 0
       },
+      theme: 'history',
       hasAnswered: false
     }
   ]
 };
 
+const counters = {
+  programming: 0,
+  math: 0,
+  science: 0,
+  history: 0
+};
+
+const allQuestions = [...QUESTIONS.programming, ...QUESTIONS.math, ...QUESTIONS.history];
+
 const randomNumber = number => {
   return Math.floor(Math.random() * (number + 1));
 };
 
-startButton.addEventListener('click', () => {});
+let unansweredQuestions;
+
+let currentQuestion;
+const setNewQuestion = () => {
+  unansweredQuestions = allQuestions.filter(item => !item.hasAnswered);
+  currentQuestion = unansweredQuestions[randomNumber(allQuestions.length - 1)];
+};
+
+const printQuestion = () => {
+  setNewQuestion();
+  gameQuestionElement.textContent = currentQuestion.question;
+  const fragment = document.createDocumentFragment();
+  currentQuestion.answers.options.forEach(option => {
+    let newAnswer = document.createElement('p');
+    newAnswer.textContent = option;
+    newAnswer.classList.add('answer');
+    newAnswer.dataset.option = currentQuestion.answers.options.indexOf(option);
+    fragment.append(newAnswer);
+  });
+  answersElement.append(fragment);
+};
+
+//const printCounter = () => {};
+
+const updateScore = theme => {
+  document.getElementById(`${theme}-score`).textContent = counters[theme];
+};
+
+startButton.addEventListener('click', () => {
+  startButton.remove();
+  printQuestion(currentQuestion);
+  //printCounter();
+});
+
+answersElement.addEventListener('click', ev => {
+  if (!ev.target.classList.contains('answer')) return;
+  if (Number(ev.target.dataset.option) === currentQuestion.answers.correctAnswer) {
+    counters[currentQuestion.theme]++;
+    updateScore(currentQuestion.theme);
+  }
+  currentQuestion.hasAnswered = true;
+  answers.innerHTML = '';
+  printQuestion();
+});
