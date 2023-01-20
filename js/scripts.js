@@ -212,7 +212,7 @@ let unansweredQuestions;
 let currentQuestion;
 const setNewQuestion = () => {
   unansweredQuestions = allQuestions.filter(item => !item.hasAnswered);
-  currentQuestion = unansweredQuestions[randomNumber(allQuestions.length - 1)];
+  currentQuestion = unansweredQuestions[randomNumber(unansweredQuestions.length - 1)];
 };
 
 const printQuestion = () => {
