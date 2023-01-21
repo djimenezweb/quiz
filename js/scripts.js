@@ -209,6 +209,15 @@ const randomNumber = number => {
 
 let unansweredQuestions;
 
+const endGame = () => {
+  const totalScore = Object.values(counters).reduce((accumulator, current) => accumulator + current);
+  gameQuestionElement.textContent = 'TERMINASTE';
+  let finalScore = document.createElement('h2');
+  finalScore.textContent = `Has acertado ${totalScore} preguntas de ${allQuestions.length}`;
+  finalScore.classList.add('final-score');
+  answersElement.append(finalScore);
+};
+
 let currentQuestion;
 const setNewQuestion = () => {
   unansweredQuestions = allQuestions.filter(item => !item.hasAnswered);
@@ -217,16 +226,20 @@ const setNewQuestion = () => {
 
 const printQuestion = () => {
   setNewQuestion();
-  gameQuestionElement.textContent = currentQuestion.question;
-  const fragment = document.createDocumentFragment();
-  currentQuestion.answers.options.forEach(option => {
-    let newAnswer = document.createElement('p');
-    newAnswer.textContent = option;
-    newAnswer.classList.add('answer');
-    newAnswer.dataset.option = currentQuestion.answers.options.indexOf(option);
-    fragment.append(newAnswer);
-  });
-  answersElement.append(fragment);
+  if (unansweredQuestions.length === 0) {
+    endGame();
+  } else {
+    gameQuestionElement.textContent = currentQuestion.question;
+    const fragment = document.createDocumentFragment();
+    currentQuestion.answers.options.forEach(option => {
+      let newAnswer = document.createElement('p');
+      newAnswer.textContent = option;
+      newAnswer.classList.add('answer');
+      newAnswer.dataset.option = currentQuestion.answers.options.indexOf(option);
+      fragment.append(newAnswer);
+    });
+    answersElement.append(fragment);
+  }
 };
 
 const updateScore = theme => {
