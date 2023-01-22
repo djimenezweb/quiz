@@ -209,6 +209,12 @@ const randomNumber = number => {
 
 let unansweredQuestions;
 
+// const printTimer = () => {
+//   for (let index = 5; index > 0; index--) {
+//     remainingTimeElement.textContent = index;
+//   }
+// };
+
 const endGame = () => {
   const totalScore = Object.values(counters).reduce((accumulator, current) => accumulator + current);
   gameQuestionElement.textContent = 'TERMINASTE';
@@ -241,6 +247,9 @@ const printQuestion = () => {
       fragment.append(newAnswer);
     });
     answersElement.append(fragment);
+    // setInterval(() => {
+    //   printTimer();
+    // }, 1000);
   }
 };
 
