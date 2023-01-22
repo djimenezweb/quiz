@@ -201,7 +201,7 @@ const counters = {
   history: 0
 };
 
-const allQuestions = [...QUESTIONS.programming, ...QUESTIONS.math, ...QUESTIONS.science, ...QUESTIONS.history];
+let allQuestions = [...QUESTIONS.programming, ...QUESTIONS.math, ...QUESTIONS.science, ...QUESTIONS.history];
 
 const randomNumber = number => {
   return Math.floor(Math.random() * (number + 1));
@@ -216,6 +216,8 @@ const endGame = () => {
   finalScore.textContent = `Has acertado ${totalScore} preguntas de ${allQuestions.length}`;
   finalScore.classList.add('final-score');
   answersElement.append(finalScore);
+  startButton.textContent = 'REPLAY';
+  startButton.removeAttribute('hidden');
 };
 
 let currentQuestion;
@@ -247,7 +249,7 @@ const updateScore = theme => {
 };
 
 startButton.addEventListener('click', () => {
-  startButton.remove();
+  startButton.setAttribute('hidden', 0);
   printQuestion();
 });
 
