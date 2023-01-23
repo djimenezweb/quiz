@@ -216,15 +216,15 @@ const printCountDown = number => {
   remainingTimeElement.textContent = number;
   let counter = number;
   intervalId = setInterval(() => {
-    counter--;
+    counter = (counter - 0.01).toFixed(2);
     remainingTimeElement.textContent = counter;
-    if (counter === 0) {
+    if (counter < 0.01) {
       currentQuestion.hasAnswered = true;
       answers.innerHTML = '';
       clearTimeout(intervalId);
       printQuestion();
     }
-  }, 1000);
+  }, 10);
 };
 
 let currentQuestion;
@@ -245,7 +245,7 @@ const printQuestion = () => {
     fragment.append(newAnswer);
   });
   answersElement.append(fragment);
-  printCountDown(5);
+  printCountDown(10);
 };
 
 const updateScore = theme => {
