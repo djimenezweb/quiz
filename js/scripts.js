@@ -1,4 +1,5 @@
 const startButton = document.getElementById('start-button');
+const replayButton = document.getElementById('replay-button');
 const gameQuestionElement = document.getElementById('game-question');
 const answersElement = document.getElementById('answers');
 const remainingTimeElement = document.getElementById('remaining-time');
@@ -209,15 +210,21 @@ const randomNumber = number => {
 
 let unansweredQuestions;
 
-const endGame = () => {
-  const totalScore = Object.values(counters).reduce((accumulator, current) => accumulator + current);
-  gameQuestionElement.textContent = 'TERMINASTE';
-  let finalScore = document.createElement('h2');
-  finalScore.textContent = `Has acertado ${totalScore} preguntas de ${allQuestions.length}`;
-  finalScore.classList.add('final-score');
-  answersElement.append(finalScore);
-  startButton.textContent = 'REPLAY';
-  startButton.removeAttribute('hidden');
+let intervalId = '';
+
+const printCountDown = number => {
+  remainingTimeElement.textContent = number;
+  let counter = number;
+  intervalId = setInterval(() => {
+    counter--;
+    remainingTimeElement.textContent = counter;
+    if (counter === 0) {
+      currentQuestion.hasAnswered = true;
+      answers.innerHTML = '';
+      clearTimeout(intervalId);
+      printQuestion();
+    }
+  }, 1000);
 };
 
 let currentQuestion;
@@ -228,40 +235,47 @@ const setNewQuestion = () => {
 
 const printQuestion = () => {
   setNewQuestion();
-  if (unansweredQuestions.length === 0) {
-    endGame();
-  } else {
-    gameQuestionElement.textContent = currentQuestion.question;
-    const fragment = document.createDocumentFragment();
-    currentQuestion.answers.options.forEach(option => {
-      let newAnswer = document.createElement('p');
-      newAnswer.textContent = option;
-      newAnswer.classList.add('answer');
-      newAnswer.dataset.option = currentQuestion.answers.options.indexOf(option);
-      fragment.append(newAnswer);
-    });
-    answersElement.append(fragment);
-
-    // CUENTA ATRÁS
-    remainingTimeElement.textContent = 5;
-    let counter = 5;
-    const intervalId = setInterval(() => {
-      counter--;
-      remainingTimeElement.textContent = counter;
-    }, 1000);
-  }
+  gameQuestionElement.textContent = currentQuestion.question;
+  const fragment = document.createDocumentFragment();
+  currentQuestion.answers.options.forEach(option => {
+    let newAnswer = document.createElement('p');
+    newAnswer.textContent = option;
+    newAnswer.classList.add('answer');
+    newAnswer.dataset.option = currentQuestion.answers.options.indexOf(option);
+    fragment.append(newAnswer);
+  });
+  answersElement.append(fragment);
+  printCountDown(5);
 };
 
 const updateScore = theme => {
-  document.getElementById(`${theme}-score`).textContent = counters[theme];
+  if (theme) document.getElementById(`${theme}-score`).textContent = counters[theme];
+  else
+    Object.keys(counters).forEach(key => {
+      counters[key] = 0;
+      document.getElementById(`${key}-score`).textContent = 0;
+    });
+};
+
+const endGame = () => {
+  remainingTimeElement.textContent = '';
+  const totalScore = Object.values(counters).reduce((accumulator, current) => accumulator + current);
+  gameQuestionElement.textContent = 'TERMINASTE';
+  let finalScore = document.createElement('h2');
+  finalScore.textContent = `Has acertado ${totalScore} preguntas de ${allQuestions.length}`;
+  finalScore.classList.add('final-score');
+  answersElement.append(finalScore);
+  replayButton.hidden = false;
 };
 
 startButton.addEventListener('click', () => {
-  startButton.setAttribute('hidden', 0);
+  startButton.hidden = true;
+  setNewQuestion();
   printQuestion();
 });
 
 answersElement.addEventListener('click', ev => {
+  clearTimeout(intervalId);
   if (!ev.target.classList.contains('answer')) return;
   if (Number(ev.target.dataset.option) === currentQuestion.answers.correctAnswer) {
     counters[currentQuestion.theme]++;
@@ -269,5 +283,19 @@ answersElement.addEventListener('click', ev => {
   }
   currentQuestion.hasAnswered = true;
   answers.innerHTML = '';
-  printQuestion();
+  if (unansweredQuestions.length === 1) {
+    endGame();
+  } else {
+    printQuestion();
+  }
+});
+
+replayButton.addEventListener('click', ev => {
+  replayButton.hidden = true;
+  gameQuestionElement.textContent = 'Bienvenido a tu propio juego de preguntas y respuestas';
+  startButton.hidden = false;
+  answers.innerHTML = '';
+  remainingTimeElement.textContent = '';
+  allQuestions.forEach(question => (question.hasAnswered = false));
+  updateScore();
 });
